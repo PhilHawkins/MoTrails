@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +84,8 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
 
         routePoints = new ArrayList<LatLng>();
         track = new PolylineOptions();
+        int blue = android.graphics.Color.rgb(0, 55, 255);
+        track.color( blue );
 
 
 //        LocationRequest mLocationRequest = new LocationRequest();
@@ -95,6 +102,26 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
 
     public void stopRecording(View view){
         lm.removeUpdates(locationListener);
+        JSONObject featureCollection = new JSONObject();
+
+        JSONArray features = new JSONArray();
+        for(LatLng ll : routePoints){
+            JSONObject feature = new JSONObject();
+            JSONObject geometry = new JSONObject();
+            JSONArray coordinates = new JSONArray();
+            try {
+                feature.put("type", "Feature");
+                geometry.put("type", "Point");
+                coordinates.put(ll.longitude);
+                coordinates.put(ll.latitude);
+                geometry.put("coordinates", coordinates);
+                feature.put("geometry", geometry);
+                features.put(feature);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.d("geojson", features.toString());
     }
 
     public void addTrailPoint(Location location){
