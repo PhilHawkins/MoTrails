@@ -131,6 +131,7 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
 
         LatLng latLng = new LatLng(lat, lng);
         track.add(latLng);
+        routePoints.add(latLng);
         if(curLine != null){
             curLine.remove();
         }
