@@ -2,56 +2,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".UserHomeActivity"
+    tools:context=".UserHomeActivity"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#ff1b1b1b">
 
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="140dp"
         android:background="@drawable/logo_sm"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.13" />
+        android:maxHeight="140dp"
+        android:maxWidth="200dp"
+        android:minHeight="140dp"
+        android:minWidth="200dp"
+        android:padding="40dp"/>
 
-    <TextView
-        android:layout_width="113dp"
-        android:layout_height="30dp"
-        android:text="@string/app_name"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:id="@+id/text_appTitle"
-        android:textSize="24sp" />
-    
-    <Button
-        android:layout_width="131dp"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ui_button_record"
         android:text="@string/button_addTrail"
-        android:id="@+id/button_addTrail"
         android:onClick="gotoRecordTrail"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/button_addTrail"
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        android:maxWidth="325dp"
+        android:minWidth="325dp"
+        android:padding="40dp"/>
 
-    <Button
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
+
+    <ImageButton
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ui_button_find"
         android:text="@string/button_findTrails"
         android:onClick="gotoFindTrails"
         android:layout_gravity="center_horizontal"
         android:id="@+id/button_findTrails"
-        android:layout_weight="0.05" />
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        android:maxWidth="325dp"
+        android:minWidth="325dp"
+        android:padding="40dp"/>
 
-    <Button
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ui_button_findfriends"
         android:text="@string/button_findFriends"
         android:onClick="gotoFindFriends"
         android:layout_gravity="center_horizontal"
         android:id="@+id/button_findFriends"
-        android:layout_weight="0.05" />
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        android:maxWidth="325dp"
+        android:minWidth="325dp"
+
+        android:padding="40dp"/>
 
 
 </LinearLayout>
