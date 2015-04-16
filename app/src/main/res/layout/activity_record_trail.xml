@@ -13,13 +13,6 @@
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.MapFragment"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_start_recording"
-        android:onClick="startRecording"
-        android:layout_above="@+id/stopRecordingButton"
-        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,7 +21,27 @@
         android:onClick="stopRecording"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/stopRecordingButton" />
+        android:id="@+id/stopRecordingButton"
+        android:visibility="invisible" />
 
+    <Button
+        android:id="@+id/startRecordingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_start_recording"
+        android:onClick="startRecording"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/stopRecordingButton"
+        android:layout_alignLeft="@id/stopRecordingButton" />
+
+
+    <Button
+        android:id="@+id/addWaypointButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addPoint"
+        android:onClick="addWaypoint"
+        android:layout_above="@id/stopRecordingButton"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

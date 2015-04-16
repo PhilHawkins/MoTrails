@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
@@ -87,6 +90,14 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
         int blue = android.graphics.Color.rgb(0, 55, 255);
         track.color( blue );
 
+       ViewGroup layout = (ViewGroup) view.getParent();
+        if(null!=layout){
+            layout.removeView(view);
+            findViewById(R.id.stopRecordingButton).setVisibility(View.VISIBLE);
+
+        }
+
+
 
 //        LocationRequest mLocationRequest = new LocationRequest();
 //        mLocationRequest.setInterval(10000);
@@ -100,11 +111,18 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
         }
     }
 
+    private void addWaypoint() {
+        Log.d("addWaypoint", "add waypoint function called");
+    }
+
     public void stopRecording(View view){
         lm.removeUpdates(locationListener);
+
         JSONObject featureCollection = new JSONObject();
 
         JSONArray features = new JSONArray();
+
+        Log.d("stop", "stop");
         for(LatLng ll : routePoints){
             JSONObject feature = new JSONObject();
             JSONObject geometry = new JSONObject();
@@ -114,12 +132,22 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
                 geometry.put("type", "Point");
                 coordinates.put(ll.longitude);
                 coordinates.put(ll.latitude);
+                Log.d("coordinates", coordinates.toString());
                 geometry.put("coordinates", coordinates);
+                Log.d("geometry", geometry.toString());
                 feature.put("geometry", geometry);
+                Log.d("feature", feature.toString());
                 features.put(feature);
+                Log.d("features", features.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.d("exception", e.toString());
             }
+        }
+        try {
+            featureCollection.put("featureCollection", featureCollection);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         Log.d("geojson", features.toString());
     }
@@ -131,10 +159,14 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
 
         LatLng latLng = new LatLng(lat, lng);
         track.add(latLng);
+        Log.d("addPoint", latLng.toString());
         routePoints.add(latLng);
+        Log.d("routePoints", routePoints.toString());
         if(curLine != null){
             curLine.remove();
         }
         curLine = map.addPolyline(track);
+        int blue = android.graphics.Color.rgb(0, 55, 255);
+        curLine.setColor(blue);
     }
 }

@@ -12,4 +12,5 @@
     <string name="title_activity_find_trails">FindTrailsActivity</string>
     <string name="button_start_recording">Begin Recording Trail</string>
     <string name="button_stop_recording">Stop Recording</string>
+    <string name="addPoint">Add Waypoint</string>
 </resources>
