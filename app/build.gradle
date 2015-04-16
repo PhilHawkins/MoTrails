@@ -4,9 +4,9 @@ android {
     signingConfigs {
         config {
             keyAlias 'MoTrailsKey'
-            keyPassword 'Clicker1'
+            keyPassword 'MoTrailsHellaSecurePassword'
             storeFile file('C:/Users/philt_000/.android/keystore.jks')
-            storePassword 'Clicker1'
+            storePassword 'MoTrailsRemoteKeystorePassword'
         }
     }
     compileSdkVersion 21
