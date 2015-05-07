@@ -38,6 +38,7 @@
         android:id="@+id/addWaypointButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:text="@string/addPoint"
         android:onClick="addWaypoint"
         android:layout_above="@id/stopRecordingButton"

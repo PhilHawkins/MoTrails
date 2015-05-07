@@ -1,9 +1,11 @@
 package edu.csus.teamname.motrails;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,6 +41,7 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
     ArrayList<LatLng> routePoints;
     Polyline curLine;
     PolylineOptions track;
+    private static final int WAYPOINT_REQUEST = 777;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +88,11 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
     }
 
     public void startRecording(View view){
-
+        if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(RecordTrailActivity.this, R.string.please_turn_on_gps, Toast.LENGTH_LONG).show();
+            Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            RecordTrailActivity.this.startActivity(myIntent);
+        }
         routePoints = new ArrayList<LatLng>();
         track = new PolylineOptions();
         int blue = android.graphics.Color.rgb(0, 55, 255);
@@ -94,7 +102,7 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
         if(null!=layout){
             layout.removeView(view);
             findViewById(R.id.stopRecordingButton).setVisibility(View.VISIBLE);
-
+            findViewById(R.id.addWaypointButton).setVisibility(View.VISIBLE);
         }
 
 
@@ -111,8 +119,20 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
         }
     }
 
-    private void addWaypoint() {
+    public void addWaypoint(View view) {
+
         Log.d("addWaypoint", "add waypoint function called");
+
+        Location loc = lm.getLastKnownLocation(lm.GPS_PROVIDER);
+        Intent i = new Intent(this, AddWaypoint.class);
+        i.putExtra("location", loc);
+        startActivityForResult(i, WAYPOINT_REQUEST);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == WAYPOINT_REQUEST && resultCode == RESULT_OK){
+            //data.get
+        }
     }
 
     public void stopRecording(View view){
@@ -122,34 +142,39 @@ public class RecordTrailActivity extends Activity implements OnMapReadyCallback 
 
         JSONArray features = new JSONArray();
 
-        Log.d("stop", "stop");
+        JSONObject feature = new JSONObject();
+        JSONObject geometry = new JSONObject();
+        JSONArray coordinates = new JSONArray();
+
+        try {
+            feature.put("type", "Feature");
+            geometry.put("type", "LineString");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         for(LatLng ll : routePoints){
-            JSONObject feature = new JSONObject();
-            JSONObject geometry = new JSONObject();
-            JSONArray coordinates = new JSONArray();
             try {
-                feature.put("type", "Feature");
-                geometry.put("type", "Point");
-                coordinates.put(ll.longitude);
-                coordinates.put(ll.latitude);
-                Log.d("coordinates", coordinates.toString());
-                geometry.put("coordinates", coordinates);
-                Log.d("geometry", geometry.toString());
-                feature.put("geometry", geometry);
-                Log.d("feature", feature.toString());
-                features.put(feature);
-                Log.d("features", features.toString());
-            } catch (JSONException e) {
+                JSONArray pointCoords = new JSONArray();
+                pointCoords.put(ll.longitude);
+                pointCoords.put(ll.latitude);
+                coordinates.put(pointCoords);
+            }
+            catch (JSONException e){
                 e.printStackTrace();
-                Log.d("exception", e.toString());
+
             }
         }
         try {
+            geometry.put("coordinates", coordinates);
+            feature.put("geometry", geometry);
+            features.put(feature);
             featureCollection.put("featureCollection", featureCollection);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("geojson", features.toString());
+        Log.d("geojson", featureCollection.toString());
     }
 
     public void addTrailPoint(Location location){

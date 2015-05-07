@@ -13,4 +13,10 @@
     <string name="button_start_recording">Begin Recording Trail</string>
     <string name="button_stop_recording">Stop Recording</string>
     <string name="addPoint">Add Waypoint</string>
+    <string name="title_activity_add_waypoint">AddWaypoint</string>
+    <string name="addPhoto">Add Photo</string>
+    <string name="takePhoto">Take Picture</string>
+    <string name="titleText">Title</string>
+    <string name="descriptionText">Description</string>
+    <string name="please_turn_on_gps">Please activate GPS signal</string>
 </resources>
