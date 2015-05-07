@@ -18,12 +18,12 @@
         android:maxWidth="200dp"
         android:minHeight="140dp"
         android:minWidth="200dp"
-        android:padding="40dp"/>
+        android:layout_marginTop="40dp"/>
 
-    <ImageButton
+    <Button
+        android:background="@drawable/ui_button"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:src="@drawable/ui_button_record"
         android:text="@string/button_addTrail"
         android:onClick="gotoRecordTrail"
         android:layout_gravity="center_horizontal"
@@ -32,14 +32,15 @@
         android:minHeight="60dp"
         android:maxWidth="325dp"
         android:minWidth="325dp"
-        android:layout_marginTop="80dp"
-        android:padding="40dp"/>
+        android:layout_marginTop="70dp"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 
-    <ImageButton
+    <Button
+        android:background="@drawable/ui_button"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:src="@drawable/ui_button_find"
         android:text="@string/button_findTrails"
         android:onClick="gotoFindTrails"
         android:layout_gravity="center_horizontal"
@@ -48,12 +49,14 @@
         android:minHeight="60dp"
         android:maxWidth="325dp"
         android:minWidth="325dp"
-        android:padding="40dp"/>
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="18dp" />
 
-    <ImageButton
+    <Button
+        android:background="@drawable/ui_button"
         android:layout_width="325dp"
         android:layout_height="60dp"
-        android:src="@drawable/ui_button_findfriends"
         android:text="@string/button_findFriends"
         android:onClick="gotoFindFriends"
         android:layout_gravity="center_horizontal"
@@ -62,8 +65,9 @@
         android:minHeight="60dp"
         android:maxWidth="325dp"
         android:minWidth="325dp"
-
-        android:padding="40dp"/>
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>
